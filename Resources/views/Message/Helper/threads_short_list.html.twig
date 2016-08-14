@@ -1,0 +1,39 @@
+{% import '@ApplicationStock/Macro/macro_stock.html.twig' as macro_stock %}
+
+
+{% if threads |length > 0 %}
+    {% for thread in threads %}
+        {% set message = thread.lastMessage %}
+        {% set participant = thread.getOtherParticipants(app.user)[0] %}
+        <li{% if not fos_message_is_read(message) %} class="unread"{% endif %}>
+            <a href="{{ path('fos_message_thread_view', {'threadId': thread.id}) }}">
+                <div class="left">
+                    {% if participant.avatar %}
+                        {% media participant.avatar, 'abstract' with {'height': 'auto', 'width': 'auto', 'alt': participant.username, 'title': participant.username} %}
+                    {% else %}
+                        <img src="{{ asset('bundles/applicationmain/images/default/avatar_abstract.jpg') }}" alt="{{ participant.username }}"/>
+                    {% endif %}
+                </div>
+                <div class="right">
+                    <p class="username-container">
+                        {{ macro_stock.userBox(participant, false, false) }}
+                    </p>
+                    <time datetime="{{ message.createdAt |date('Y-m-d H:i:s') }}">{{ message.createdAt |format_datetime(null, null, null, constant('IntlDateFormatter::LONG'), constant('IntlDateFormatter::SHORT')) }}</time>
+                    <p class="body">
+                        {% if message.sender == app.user %}
+                            <span class="glyphicon glyphicon-share-alt"></span>
+                        {% else %}
+                            <span class="glyphicon glyphicon-comment"></span>
+                        {% endif %}
+                        {{ message.body |truncate(100)}}
+                    </p>
+                </div>
+            </a>
+        </li>
+    {% endfor %}
+    <li>
+        <div class="last"><a href="{{ path('fos_message_inbox') }}">{{ 'message.display_all' |trans }}</a></div>
+    </li>
+{% else %}
+    <li><div><p class="no-results">{{ 'message.no_results' |trans }}</p></div></li>
+{% endif %}

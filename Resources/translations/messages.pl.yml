@@ -1,0 +1,6 @@
+message:
+    delete_success: Konwersacja została usunięta
+    undelete_success: Konwersacja została przywrócona
+    display_all: Wyświetl wszystkie
+    validation:
+        min_length: Wiadomość powinna skłądać się z minimum 5 znaków

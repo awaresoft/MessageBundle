@@ -1,0 +1,6 @@
+message:
+    delete_success: Conversation has been deleted
+    undelete_success: Conversation has been revert
+    display_all: Display all
+    validation:
+        min_length: The message should contain a minimum of 5 characters
