@@ -1,5 +1,5 @@
 {
-    "name": "awaresoft/MessageBundle",
+    "name": "awaresoft/message-bundle",
     "type": "symfony-bundle",
     "description": "Symfony Awaresoft MessageBundle",
     "require": {
